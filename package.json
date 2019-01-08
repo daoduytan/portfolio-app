@@ -5,9 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "next",
+    "dev": "node server.js",
     "build": "next build",
-    "start": "next start",
+    "start": "NODE_ENV=production node server.js",
     "heroku-postbuild": "npm run build"
   },
   "keywords": [],
@@ -35,7 +35,7 @@
     "mongoose": "^5.3.12",
     "next": "^7.0.2",
     "next-routes": "^1.4.2",
-    "node-sass": "^4.9.4",
+    "node-sass": "^4.11.0",
     "optimize-css-assets-webpack-plugin": "^5.0.1",
     "react": "^16.6.0",
     "react-datepicker": "^1.8.0",
