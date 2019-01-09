@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { Component } from 'react';
+
 import Link from 'next/link';
 import auth0 from '../../services/auth0';
 
@@ -33,7 +34,7 @@ const Logout = () => {
   return <span className="nav-link port-navbar-link clickable">Logout</span>;
 };
 
-class Header extends React.Component {
+class Header extends Component {
   constructor(props) {
     super(props);
 

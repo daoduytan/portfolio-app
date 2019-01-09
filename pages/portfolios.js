@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { Link } from '../routes';
 import axios from 'axios';
 import BaseLayout from '../components/layouts/BaseLayout';
 import BasePage from '../components/shared/BasePage';
 
-class Portfolios extends React.Component {
+class Portfolios extends Component {
   static async getInitialProps() {
     let posts = [];
     try {

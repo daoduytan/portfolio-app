@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { Component } from 'react';
 import BaseLayout from '../components/layouts/BaseLayout';
 import BasePage from '../components/shared/BasePage';
 
-class Blogs extends React.Component {
+class Blogs extends Component {
   render() {
     return (
       <BaseLayout>

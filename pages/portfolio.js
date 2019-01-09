@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { withRouter } from 'next/router';
 import axios from 'axios';
 import BaseLayout from '../components/layouts/BaseLayout';
 import BasePage from '../components/shared/BasePage';
 
-class Portfolio extends React.Component {
+class Portfolio extends Component {
   static async getInitialProps({ query }) {
     const portfolioId = query.id;
     let portfolio = {};

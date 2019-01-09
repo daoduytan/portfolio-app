@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { Component } from 'react';
 import Typed from 'react-typed';
 import BaseLayout from '../components/layouts/BaseLayout';
 
 import { Container, Row, Col } from 'reactstrap';
 
-class Index extends React.Component {
+class Index extends Component {
   constructor(props) {
     super(props);
 
