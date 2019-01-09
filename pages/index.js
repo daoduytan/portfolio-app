@@ -1,9 +1,23 @@
 import React from 'react';
+import Typed from 'react-typed';
 import BaseLayout from '../components/layouts/BaseLayout';
 
 import { Container, Row, Col } from 'reactstrap';
 
 class Index extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.roles = [
+      'Web Developer',
+      'Java Script',
+      'MERN stack',
+      'Team player',
+      'Runner',
+      'American Football player'
+    ];
+  }
+
   render() {
     return (
       <BaseLayout className="cover">
@@ -40,9 +54,22 @@ class Index extends React.Component {
                   <h1>
                     Welcome to the portfolio website of Marcin Cholewka. Get
                     informed, collaborate and discover projects I was working on
-                    through the years!
+                    through the last year!
                   </h1>
                 </div>
+
+                <Typed
+                  loop
+                  typeSpeed={50}
+                  backSpeed={50}
+                  strings={this.roles}
+                  backDelay={1000}
+                  loopCount={0}
+                  showCursor
+                  cursorChar="|"
+                  className="self-typed"
+                />
+
                 <div className="hero-welcome-bio">
                   <h1>Let's take a look on my work.</h1>
                 </div>
