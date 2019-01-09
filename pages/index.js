@@ -13,8 +13,8 @@ class Index extends Component {
       'Java Script',
       'MERN stack',
       'Team player',
-      'Runner',
-      'American Football player'
+      'American Football player',
+      'Runner'
     ];
   }
 
