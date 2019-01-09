@@ -1,5 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
+import auth0 from '../../services/auth0';
 
 import {
   Collapse,
@@ -21,14 +22,18 @@ const BootstrapNavLink = props => {
 };
 
 const Login = () => {
-  return <span className="nav-link port-navbar-link clickable">Login</span>;
+  return (
+    <span onClick={auth0.login} className="nav-link port-navbar-link clickable">
+      Login
+    </span>
+  );
 };
 
 const Logout = () => {
   return <span className="nav-link port-navbar-link clickable">Logout</span>;
 };
 
-export default class Example extends React.Component {
+class Header extends React.Component {
   constructor(props) {
     super(props);
 
@@ -80,3 +85,5 @@ export default class Example extends React.Component {
     );
   }
 }
+
+export default Header;
