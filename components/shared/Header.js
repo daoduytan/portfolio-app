@@ -7,8 +7,7 @@ import {
   NavbarToggler,
   NavbarBrand,
   Nav,
-  NavItem,
-  NavLink
+  NavItem
 } from 'reactstrap';
 
 const BootstrapNavLink = props => {
@@ -19,6 +18,14 @@ const BootstrapNavLink = props => {
       <a className="nav-link port-navbar-link">{text} </a>
     </Link>
   );
+};
+
+const Login = () => {
+  return <span className="nav-link port-navbar-link clickable">Login</span>;
+};
+
+const Logout = () => {
+  return <span className="nav-link port-navbar-link clickable">Logout</span>;
 };
 
 export default class Example extends React.Component {
@@ -59,6 +66,12 @@ export default class Example extends React.Component {
               </NavItem>
               <NavItem className="port-navbar-item">
                 <BootstrapNavLink route="/cv" text="CV" />
+              </NavItem>
+              <NavItem className="port-navbar-item">
+                <Login />
+              </NavItem>
+              <NavItem className="port-navbar-item">
+                <Logout />
               </NavItem>
             </Nav>
           </Collapse>
