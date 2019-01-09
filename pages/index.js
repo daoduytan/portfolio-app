@@ -20,7 +20,7 @@ class Index extends Component {
 
   render() {
     return (
-      <BaseLayout className="cover">
+      <BaseLayout className="cover" {...this.props.auth}>
         <div className="main-section">
           <div className="background-image">
             <img src="/static/images/background-index-0.png" />

@@ -56,6 +56,8 @@ class Header extends Component {
     });
   }
   render() {
+    const { isAuthenticated } = this.props;
+
     return (
       <div>
         <Navbar className="port-navbar port-default absolute" dark expand="md">
@@ -80,12 +82,12 @@ class Header extends Component {
               <NavItem className="port-navbar-item">
                 <BootstrapNavLink route="/cv" text="CV" />
               </NavItem>
-              {!auth0.isAuthenticated() && (
+              {!isAuthenticated && (
                 <NavItem className="port-navbar-item">
                   <Login />
                 </NavItem>
               )}
-              {auth0.isAuthenticated() && (
+              {isAuthenticated && (
                 <NavItem className="port-navbar-item">
                   <Logout />
                 </NavItem>

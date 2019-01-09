@@ -5,7 +5,7 @@ import BasePage from '../components/shared/BasePage';
 class Blogs extends Component {
   render() {
     return (
-      <BaseLayout>
+      <BaseLayout {...this.props.auth}>
         <BasePage>
           <h1>I'm blog page</h1>
         </BasePage>

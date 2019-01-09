@@ -5,7 +5,7 @@ import BasePage from '../components/shared/BasePage';
 class Cv extends Component {
   render() {
     return (
-      <BaseLayout>
+      <BaseLayout {...this.props.auth}>
         <BasePage>
           <h1>I'm Cv page</h1>
         </BasePage>
