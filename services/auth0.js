@@ -53,14 +53,6 @@ class Auth0 {
     this.auth0.authorize();
   };
 
-  isAuthenticated = () => {
-    // Check whether the current time is past the
-    // access token's expiry time
-    const expiresAt = Cookies.getJSON('expiresAt');
-
-    return new Date().getTime() < expiresAt;
-  };
-
   verifyToken = token => {
     if (token) {
       const decodedToken = jwt.decode(token);
@@ -74,10 +66,11 @@ class Auth0 {
   };
 
   clientAuth = () => {
+    debugger;
     const token = Cookies.getJSON('jwt');
     const verifiedToken = this.verifyToken(token);
 
-    return token;
+    return verifiedToken;
   };
 
   serverAuth = req => {
