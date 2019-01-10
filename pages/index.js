@@ -55,9 +55,7 @@ class Index extends Component {
                 <div className="hero-welcome-text">
                   <h1>
                     {isAuthenticated && (
-                      <span>
-                        <b> {user.name} </b>
-                      </span>
+                      <span className="user-name">{user.name}</span>
                     )}
                     Welcome to the portfolio website of Marcin Cholewka. Get
                     informed, collaborate and discover projects I was working on

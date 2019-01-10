@@ -14,7 +14,7 @@ body {
 }
 
 .self-typed {
-  font-size: 40px;
+  font-size: 35px;
   font-weight: bold;
   letter-spacing: 2px;
   color: white;
@@ -31,4 +31,10 @@ body {
 
 .clickable {
   cursor: pointer;
+}
+
+.user-name {
+  font-weight: bold;
+  color: #c8ff00;
+  padding-right: 10px;
 }
