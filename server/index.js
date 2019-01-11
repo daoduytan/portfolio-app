@@ -2,6 +2,9 @@ const express = require('express');
 const next = require('next');
 const routes = require('../routes');
 
+// SERVICES
+const authService = require('./services/auth');
+
 const dev = process.env.NODE_ENV !== 'production';
 const app = next({ dev });
 const handle = routes.getRequestHandler(app);
@@ -21,7 +24,7 @@ app
   .then(() => {
     const server = express();
 
-    server.get('/api/v1/secret', (req, res) => {
+    server.get('/api/v1/secret', authService.checkJWT, (req, res) => {
       return res.json(secretData);
     });
 
@@ -29,8 +32,16 @@ app
       return handle(req, res);
     });
 
-    server.use(handle).listen(3000, err => {
-      if (err) throw err;
+    server.use(function(error, req, res, next) {
+      if (error.name === 'UnauthorizedError') {
+        res
+          .status(401)
+          .send({ title: 'Unauthorized', detail: 'Unauthorized access!!' });
+      }
+    });
+
+    server.use(handle).listen(3000, error => {
+      if (error) throw error;
       console.log('> Ready on http://localhost:3000');
     });
   })
