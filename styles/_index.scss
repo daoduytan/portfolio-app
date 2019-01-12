@@ -1,8 +1,11 @@
 // ---------- INDEX PAGE ----------
 .cover {
   background-image: linear-gradient(45deg, #0051ff 0%, #979912 100%);
-  overflow: hidden;
   position: relative;
+}
+
+.overflow {
+  overflow: hidden;
 }
 
 .wrapper {

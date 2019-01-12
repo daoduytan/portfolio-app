@@ -22,7 +22,11 @@ class Index extends Component {
     const { isAuthenticated, user } = this.props.auth;
 
     return (
-      <BaseLayout className="cover" {...this.props.auth}>
+      <BaseLayout
+        className="cover overflow"
+        {...this.props.auth}
+        headerType="index"
+      >
         <div className="main-section">
           <div className="background-image">
             <img src="/static/images/background-index-0.png" />

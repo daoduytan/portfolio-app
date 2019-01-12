@@ -56,11 +56,15 @@ class Header extends Component {
     });
   }
   render() {
-    const { isAuthenticated } = this.props;
+    const { isAuthenticated, user, className } = this.props;
 
     return (
       <div>
-        <Navbar className="port-navbar port-default absolute" dark expand="md">
+        <Navbar
+          className={`port-navbar port-nav-base absolute ${className}`}
+          dark
+          expand="md"
+        >
           <NavbarBrand className="port-navbar-brand" href="/">
             Marcin Cholewka
           </NavbarBrand>
