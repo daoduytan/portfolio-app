@@ -3,21 +3,25 @@ import BaseLayout from '../components/layouts/BaseLayout';
 import BasePage from '../components/shared/BasePage';
 import withAuth from '../components/hoc/withAuth';
 
-import { getSecretData } from '../actions/index';
+import { getSecretData } from '../actions';
 
 class Secret extends Component {
-  static getInitialProps() {
-    const superSecretValue = 'Super secret value';
+  static async getInitialProps({ req }) {
+    const anotherSecretData = await getSecretData(req);
 
-    return { superSecretValue };
+    return { anotherSecretData };
   }
 
-  constructor(props) {
-    super();
-    this.state = {
-      secretData: []
-    };
-  }
+  // constructor(props) {
+  //   super();
+  //   this.state = {
+  //     secretData: []
+  //   };
+  // }
+
+  state = {
+    secretData: []
+  };
 
   async componentDidMount() {
     const secretData = await getSecretData();
@@ -29,20 +33,24 @@ class Secret extends Component {
 
   displaySecretData = () => {
     const { secretData } = this.state;
-    return secretData && secretData.length > 0
-      ? secretData.map((data, index) => {
-          return (
-            <div key={index}>
-              <p>{data.title}</p>
-              <p>{data.description}</p>
-            </div>
-          );
-        })
-      : null;
+
+    if (secretData && secretData.length > 0) {
+      return secretData.map((data, index) => {
+        return (
+          <div key={index}>
+            <p>{data.title}</p>
+            <p>{data.description}</p>
+          </div>
+        );
+      });
+    }
+
+    return null;
   };
 
   render() {
     const { superSecretValue } = this.props;
+
     return (
       <BaseLayout {...this.props.auth}>
         <BasePage>
@@ -56,4 +64,4 @@ class Secret extends Component {
   }
 }
 
-export default withAuth(Secret);
+export default withAuth()(Secret);

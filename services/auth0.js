@@ -3,6 +3,8 @@ import Cookies from 'js-cookie';
 import jwt from 'jsonwebtoken';
 import axios from 'axios';
 
+import { getCookieFromReq } from '../helpers/utils';
+
 class Auth0 {
   constructor() {
     this.auth0 = new auth0.WebAuth({
@@ -33,7 +35,9 @@ class Auth0 {
 
   setSession = authResult => {
     // Set the time that the access token will expire at
-    const expiresAt = authResult.expiresIn * 1000 + new Date().getTime();
+    const expiresAt = JSON.stringify(
+      authResult.expiresIn * 1000 + new Date().getTime()
+    );
 
     Cookies.set('user', authResult.idTokenPayload);
     Cookies.set('jwt', authResult.idToken);
@@ -55,10 +59,10 @@ class Auth0 {
   };
 
   getJWKS = async () => {
-    const response = await axios.get(
+    const res = await axios.get(
       'https://marcin-cholewka.eu.auth0.com/.well-known/jwks.json'
     );
-    const jwks = response.data;
+    const jwks = res.data;
 
     return jwks;
   };
@@ -96,7 +100,6 @@ class Auth0 {
   };
 
   clientAuth = async () => {
-    debugger;
     const token = Cookies.getJSON('jwt');
     const verifiedToken = await this.verifyToken(token);
 
@@ -105,15 +108,7 @@ class Auth0 {
 
   serverAuth = async req => {
     if (req.headers.cookie) {
-      const tokenCookie = req.headers.cookie
-        .split(';')
-        .find(cookie => cookie.trim().startsWith('jwt='));
-
-      if (!tokenCookie) {
-        return undefined;
-      }
-
-      const token = tokenCookie.split('=')[1];
+      const token = getCookieFromReq(req, 'jwt');
       const verifiedToken = await this.verifyToken(token);
 
       return verifiedToken;
