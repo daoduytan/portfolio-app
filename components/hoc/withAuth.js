@@ -30,7 +30,7 @@ export default role => Component =>
       if (!isAuthenticated) {
         return (
           <BaseLayout {...this.props.auth}>
-            <BasePage>
+            <BasePage className="">
               <h1>
                 {' '}
                 You are not authenticated. Please Login to access this page.{' '}
@@ -41,7 +41,7 @@ export default role => Component =>
       } else if (!isAuthorized) {
         return (
           <BaseLayout {...this.props.auth}>
-            <BasePage>
+            <BasePage className="">
               <h1>
                 {' '}
                 You are not authorized. You dont have a permission to visit this
