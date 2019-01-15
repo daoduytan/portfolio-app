@@ -1,17 +1,24 @@
 import React from 'react';
 import PortInput from '../form/PortInput';
-import { Formik, Form, Field, ErrorMessage } from 'formik';
-import { Button, FormGroup, Label } from 'reactstrap';
+import { Formik, Form, Field } from 'formik';
+import { Button } from 'reactstrap';
+import PortDate from '../form/PortDate';
 
 const validateInputs = values => {
   let errors = {};
 
-  Object.entries(values).forEach(([key, value]) => {
-    console.log(value);
-    if (!values[key]) {
+  Object.entries(values).forEach(([key, values]) => {
+    if (!values[key] && values[key] === 'date') {
       errors[key] = `Field ${key} is required !`;
     }
   });
+
+  const startDate = values.startDate;
+  const endDate = values.endDate;
+
+  if (startDate && endDate && endDate.isBefore(startDate)) {
+    errors.endDate = 'End date cannot be before start date';
+  }
 
   return errors;
 };
@@ -74,14 +81,14 @@ const PortfolioNewForm = () => (
             type="date"
             name="startDate"
             label="Start Date"
-            component={PortInput}
+            component={PortDate}
           />
 
           <Field
             type="date"
             name="endDate"
             label="End Date"
-            component={PortInput}
+            component={PortDate}
           />
 
           <Button type="submit" disabled={isSubmitting}>
