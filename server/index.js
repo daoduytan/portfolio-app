@@ -9,6 +9,8 @@ const authService = require('./services/auth');
 const dev = process.env.NODE_ENV !== 'production';
 const app = next({ dev });
 const handle = routes.getRequestHandler(app);
+const config = require('./config');
+
 const secretData = [
   {
     title: 'SecretData 1',
@@ -22,11 +24,17 @@ const secretData = [
 
 mongoose
   .connect(
-    'mongodb://<dbuser>:<dbpassword>@ds157834.mlab.com:57834/portfolio-cholewka-dev',
+    config.DB_URI,
     { useNewUrlParser: true }
   )
   .then(() => console.log('Database connected!'))
   .catch(err => console.log(err));
+
+// async () =>
+//   (await mongoose.connect(
+//     config.DB_URI,
+//     { useNewUrlParser: true }
+//   ))();
 
 app
   .prepare()
