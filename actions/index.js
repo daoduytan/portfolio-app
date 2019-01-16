@@ -40,9 +40,22 @@ export const getAllPortfolios = async () => {
   return await axiosInstance.get('/portfolios').then(response => response.data);
 };
 
+export const getPortfolioById = async id => {
+  return await axiosInstance
+    .get(`/portfolios/${id}`)
+    .then(response => response.data);
+};
+
 export const createPortfolio = async portfolioData => {
   return await axiosInstance
     .post('/portfolios', portfolioData, setAuthHeader())
+    .then(response => response.data)
+    .catch(error => rejectPromise(error));
+};
+
+export const updatePortfolio = async portfolioData => {
+  return await axiosInstance
+    .patch(`/portfolios/${portfolioData._id}`, portfolioData, setAuthHeader())
     .then(response => response.data)
     .catch(error => rejectPromise(error));
 };

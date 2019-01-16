@@ -14,6 +14,9 @@ router.post(
   portfolioControler.postPortfolio
 );
 
+// GET PORTFOLIO BY ID
+router.get('/:id', portfolioControler.getPortfolioById);
+
 // UPDATE PORTFOLIO
 router.patch(
   '/:id',

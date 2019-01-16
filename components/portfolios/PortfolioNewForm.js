@@ -3,6 +3,7 @@ import PortInput from '../form/PortInput';
 import { Formik, Form, Field } from 'formik';
 import { Button, Alert } from 'reactstrap';
 import PortDate from '../form/PortDate';
+import moment from 'moment';
 
 const validateInputs = values => {
   let errors = {};
@@ -13,8 +14,8 @@ const validateInputs = values => {
     }
   });
 
-  const startDate = values.startDate;
-  const endDate = values.endDate;
+  const startDate = moment(values.startDate);
+  const endDate = moment(values.endDate);
 
   if (startDate && endDate && endDate.isBefore(startDate)) {
     errors.endDate = 'End date cannot be before start date';
@@ -23,22 +24,12 @@ const validateInputs = values => {
   return errors;
 };
 
-const INITIAL_VALUES = {
-  title: '',
-  company: '',
-  location: '',
-  position: '',
-  description: '',
-  startDate: '',
-  endDate: ''
-};
-
-const PortfolioNewForm = props => (
+const PortfolioNewForm = ({ initialValues, onSubmit, error }) => (
   <div>
     <Formik
-      initialValues={INITIAL_VALUES}
+      initialValues={initialValues}
       validate={validateInputs}
-      onSubmit={props.onSubmit}
+      onSubmit={onSubmit}
     >
       {({ isSubmitting }) => (
         <Form>
@@ -74,6 +65,7 @@ const PortfolioNewForm = props => (
 
           <Field
             type="date"
+            initialDate={initialValues.startDate}
             name="startDate"
             label="Start Date"
             component={PortDate}
@@ -81,13 +73,14 @@ const PortfolioNewForm = props => (
 
           <Field
             type="date"
+            initialDate={initialValues.endDate}
             name="endDate"
             label="End Date"
             canBeDisabled={true}
             component={PortDate}
           />
 
-          {props.error && <Alert color="danger">{props.error}</Alert>}
+          {error && <Alert color="danger">{error}</Alert>}
 
           <Button
             color="success"

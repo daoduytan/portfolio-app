@@ -4,20 +4,22 @@ import BasePage from '../components/shared/BasePage';
 import withAuth from '../components/hoc/withAuth';
 import PortfolioNewForm from '../components/portfolios/PortfolioNewForm';
 import { Row, Col } from 'reactstrap';
-import { createPortfolio } from '../actions/index';
+import { updatePortfolio, getPortfolioById } from '../actions/index';
 import { Router } from '../routes';
 
-const INITIAL_VALUES = {
-  title: '',
-  company: '',
-  location: '',
-  position: '',
-  description: '',
-  startDate: '',
-  endDate: ''
-};
+class PortfolioEdit extends Component {
+  static async getInitialProps({ query }) {
+    let portfolio = {};
 
-class PortfolioNew extends Component {
+    try {
+      portfolio = await getPortfolioById(query.id);
+    } catch (error) {
+      console.error(error);
+    }
+    console.log(portfolio);
+    return { portfolio };
+  }
+
   constructor(props) {
     super();
 
@@ -25,42 +27,38 @@ class PortfolioNew extends Component {
       error: undefined
     };
 
-    this.savePortfolio = this.savePortfolio.bind(this);
+    this.updatePortfolio = this.updatePortfolio.bind(this);
   }
 
-  savePortfolio(portfolioData, { setSubmitting }) {
+  updatePortfolio(portfolioData, { setSubmitting }) {
     setSubmitting(true);
 
-    createPortfolio(portfolioData)
+    updatePortfolio(portfolioData)
       .then(portfolio => {
         setSubmitting(false);
-
         this.setState({ error: undefined });
         Router.pushRoute('/portfolios');
       })
       .catch(err => {
         const error = err.message || 'Server Error!';
         setSubmitting(false);
-
         this.setState({ error });
       });
   }
 
   render() {
     const { error } = this.state;
+    const { portfolio } = this.props;
 
     return (
       <BaseLayout {...this.props.auth}>
-        <BasePage
-          className="portfolio-create-page"
-          title="Create New Portfolio"
-        >
+        <BasePage className="portfolio-create-page" title="Update Portfolio">
           <Row>
             <Col md="6">
               <PortfolioNewForm
-                initialValues={INITIAL_VALUES}
+                initialValues={portfolio}
                 error={error}
-                onSubmit={this.savePortfolio}
+                onSubmit={this.updatePortfolio}
               />
             </Col>
           </Row>
@@ -70,4 +68,4 @@ class PortfolioNew extends Component {
   }
 }
 
-export default withAuth('siteOwner')(PortfolioNew);
+export default withAuth('siteOwner')(PortfolioEdit);
