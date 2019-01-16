@@ -15,10 +15,10 @@ import {
 } from 'reactstrap';
 
 class Portfolios extends Component {
-  static async getInitialProps({ req }) {
+  static async getInitialProps() {
     let portfolios = [];
     try {
-      portfolios = await getAllPortfolios(req);
+      portfolios = await getAllPortfolios();
     } catch (error) {
       console.log(error);
     }

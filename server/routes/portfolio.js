@@ -4,12 +4,7 @@ const portfolioControler = require('../controllers/portfolio');
 const authService = require('../services/auth');
 
 // GET ALL Portfolios
-router.get(
-  '',
-  authService.checkJWT,
-  authService.checkRole('siteOwner'),
-  portfolioControler.getPortfolios
-);
+router.get('', portfolioControler.getPortfolios);
 
 // POST CREATED PORTFOLIO
 router.post(
