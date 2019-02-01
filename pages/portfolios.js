@@ -3,7 +3,7 @@ import BaseLayout from '../components/layouts/BaseLayout';
 import BasePage from '../components/shared/BasePage';
 import { Router } from '../routes';
 
-import { getAllPortfolios } from '../actions/index';
+import { getAllPortfolios, deletePortfolio } from '../actions/index';
 
 import {
   Row,
@@ -25,6 +25,24 @@ class Portfolios extends Component {
       console.log(error);
     }
     return { portfolios };
+  }
+
+  displayDeleteWarning(portfolioId) {
+    const isConfirm = confirm(
+      'Are you sure you want to delete this portfolio ???'
+    );
+
+    if (isConfirm) {
+      this.deletePortfolio(portfolioId);
+    }
+  }
+
+  deletePortfolio(portfolioId) {
+    deletePortfolio(portfolioId)
+      .then(() => {
+        Router.pushRoute('/portfolios');
+      })
+      .catch(err => console.error(err));
   }
 
   renderPortfolios(portfolios) {
@@ -61,7 +79,13 @@ class Portfolios extends Component {
                         >
                           Edit
                         </Button>
-                        <Button color="danger" className="m-1">
+                        <Button
+                          onClick={() =>
+                            this.displayDeleteWarning(portfolio._id)
+                          }
+                          color="danger"
+                          className="m-1"
+                        >
                           Delete
                         </Button>
                       </>
