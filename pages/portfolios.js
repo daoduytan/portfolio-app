@@ -4,17 +4,9 @@ import BasePage from '../components/shared/BasePage';
 import { Router } from '../routes';
 
 import { getAllPortfolios, deletePortfolio } from '../actions/index';
+import PortfolioCard from '../components/portfolios/PortfolioCard';
 
-import {
-  Row,
-  Card,
-  Col,
-  CardText,
-  CardBody,
-  CardTitle,
-  CardHeader,
-  Button
-} from 'reactstrap';
+import { Row, Col, Button } from 'reactstrap';
 
 class Portfolios extends Component {
   static async getInitialProps() {
@@ -27,7 +19,13 @@ class Portfolios extends Component {
     return { portfolios };
   }
 
-  displayDeleteWarning(portfolioId) {
+  navigateToEdit(portfolioId, event) {
+    event.stopPropagation();
+    Router.pushRoute(`/portfolios/${portfolioId}/edit`);
+  }
+
+  displayDeleteWarning(portfolioId, event) {
+    event.stopPropagation();
     const isConfirm = confirm(
       'Are you sure you want to delete this portfolio ???'
     );
@@ -51,50 +49,28 @@ class Portfolios extends Component {
     return portfolios.map((portfolio, index) => {
       return (
         <Col md="4" key={index}>
-          <React.Fragment>
-            <span>
-              <Card className="portfolio-card">
-                <CardHeader className="portfolio-card-header">
-                  {portfolio.position}
-                </CardHeader>
-                <CardBody>
-                  <p className="portfolio-card-city"> {portfolio.location} </p>
-                  <CardTitle className="portfolio-card-title">
-                    {portfolio.title}
-                  </CardTitle>
-                  <CardText className="portfolio-card-text">
-                    {portfolio.description}
-                  </CardText>
-                  <div className="readMore">
-                    {isAuthenticated && isSiteOwner && (
-                      <>
-                        <Button
-                          onClick={() =>
-                            Router.pushRoute(
-                              `/portfolios/${portfolio._id}/edit`
-                            )
-                          }
-                          color="warning"
-                          className="m-1"
-                        >
-                          Edit
-                        </Button>
-                        <Button
-                          onClick={() =>
-                            this.displayDeleteWarning(portfolio._id)
-                          }
-                          color="danger"
-                          className="m-1"
-                        >
-                          Delete
-                        </Button>
-                      </>
-                    )}
-                  </div>
-                </CardBody>
-              </Card>
-            </span>
-          </React.Fragment>
+          <PortfolioCard portfolio={portfolio}>
+            {isAuthenticated && isSiteOwner && (
+              <>
+                <Button
+                  onClick={event => this.navigateToEdit(portfolio._id, event)}
+                  color="warning"
+                  className="m-1"
+                >
+                  Edit
+                </Button>
+                <Button
+                  onClick={event =>
+                    this.displayDeleteWarning(portfolio._id, event)
+                  }
+                  color="danger"
+                  className="m-1"
+                >
+                  Delete
+                </Button>
+              </>
+            )}
+          </PortfolioCard>
         </Col>
       );
     });
