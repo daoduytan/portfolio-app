@@ -28,6 +28,8 @@ class Portfolios extends Component {
   }
 
   renderPortfolios(portfolios) {
+    const { isAuthenticated, isSiteOwner } = this.props.auth;
+
     return portfolios.map((portfolio, index) => {
       return (
         <Col md="4" key={index}>
@@ -46,7 +48,7 @@ class Portfolios extends Component {
                     {portfolio.description}
                   </CardText>
                   <div className="readMore">
-                    {
+                    {isAuthenticated && isSiteOwner && (
                       <>
                         <Button
                           onClick={() =>
@@ -63,7 +65,7 @@ class Portfolios extends Component {
                           Delete
                         </Button>
                       </>
-                    }
+                    )}
                   </div>
                 </CardBody>
               </Card>
@@ -76,16 +78,20 @@ class Portfolios extends Component {
 
   render() {
     const { portfolios } = this.props;
+    const { isAuthenticated, isSiteOwner } = this.props.auth;
+
     return (
       <BaseLayout {...this.props.auth}>
         <BasePage className="portfolio-page" title="Portfolios">
-          <Button
-            onClick={() => Router.pushRoute('/portfolioNew')}
-            color="success"
-            className="mb-4"
-          >
-            Create portfolio
-          </Button>
+          {isAuthenticated && isSiteOwner && (
+            <Button
+              onClick={() => Router.pushRoute('/portfolioNew')}
+              color="success"
+              className="mb-4"
+            >
+              Create portfolio
+            </Button>
+          )}
           <Row>{this.renderPortfolios(portfolios)}</Row>
         </BasePage>
       </BaseLayout>
