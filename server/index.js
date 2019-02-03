@@ -14,6 +14,7 @@ const config = require('./config');
 
 const bookRoutes = require('./routes/book');
 const portfolioRoutes = require('./routes/portfolio');
+const blogRoutes = require('./routes/blog');
 
 const secretData = [
   {
@@ -27,10 +28,7 @@ const secretData = [
 ];
 
 mongoose
-  .connect(
-    config.DB_URI,
-    { useNewUrlParser: true }
-  )
+  .connect(config.DB_URI, { useNewUrlParser: true })
   .then(() => console.log('Database connected!'))
   .catch(err => console.log(err));
 
@@ -48,6 +46,7 @@ app
 
     server.use('/api/v1/books', bookRoutes);
     server.use('/api/v1/portfolios', portfolioRoutes);
+    server.use('/api/v1/blogs', blogRoutes);
 
     server.get('/api/v1/secret', authService.checkJWT, (req, res) => {
       return res.json(secretData);
