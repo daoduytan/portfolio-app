@@ -63,7 +63,7 @@ class Index extends Component {
                     )}
                     Welcome to the portfolio website of Marcin Cholewka. Get
                     informed, collaborate and discover projects I was working on
-                    through the last year!
+                    through the last years!
                   </h1>
                 </div>
 

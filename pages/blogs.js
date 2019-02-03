@@ -8,7 +8,11 @@ import moment from 'moment';
 class Blogs extends Component {
   render() {
     return (
-      <BaseLayout headerType={'landing'} className="blog-listing-page">
+      <BaseLayout
+        {...this.props.auth}
+        headerType={'landing'}
+        className="blog-listing-page"
+      >
         <div
           className="masthead"
           style={{ backgroundImage: "url('/static/images/home-bg.jpg')" }}

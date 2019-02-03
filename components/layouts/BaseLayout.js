@@ -15,6 +15,10 @@ const BaseLayout = props => {
           integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ"
           crossorigin="anonymous"
         />
+        <link
+          href="https://fonts.googleapis.com/icon?family=Material+Icons"
+          rel="stylesheet"
+        />
       </Head>
       <div className="layout-container">
         <Header
