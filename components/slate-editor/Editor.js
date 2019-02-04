@@ -69,12 +69,11 @@ export default class SlateEditor extends React.Component {
 
   save() {
     const { value } = this.state;
-    const { save } = this.props;
+    const { save, isLoading } = this.props;
     const headingValues = this.getTitle();
     const text = html.serialize(value);
 
-    debugger;
-    save(headingValues);
+    !isLoading && save(text, headingValues);
   }
 
   render() {
