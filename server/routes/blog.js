@@ -3,7 +3,10 @@ const router = express.Router();
 const blogController = require('../controllers/blog');
 const authService = require('../services/auth');
 
-// GET MY BLOG (must be at first place)
+// GET ALL PUBLISHED BLOGS
+router.get('', blogController.getPublishedBlogs);
+
+// GET MY BLOG (must be before get by id)
 router.get(
   '/me',
   authService.checkJWT,
@@ -28,6 +31,14 @@ router.patch(
   authService.checkJWT,
   authService.checkRole('siteOwner'),
   blogController.updateBlog
+);
+
+// DELETE POST BY ID
+router.delete(
+  '/:id',
+  authService.checkJWT,
+  authService.checkRole('siteOwner'),
+  blogController.deleteBlog
 );
 
 module.exports = router;

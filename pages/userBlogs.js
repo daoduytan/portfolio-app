@@ -2,11 +2,13 @@ import React, { Component } from 'react';
 import BaseLayout from '../components/layouts/BaseLayout';
 import BasePage from '../components/shared/BasePage';
 import { Container, Row, Col } from 'reactstrap';
-import { Link } from '../routes';
+import { Link, Router } from '../routes';
 import PortButtonDropdown from '../components/PortButtonDropdown';
 
 import withAuth from '../components/hoc/withAuth';
-import { getUserBlogs } from '../actions';
+import { getUserBlogs, updateBlog, deleteBlog } from '../actions';
+
+import { toast } from 'react-toastify';
 
 class userBlogs extends Component {
   static async getInitialProps({ req }) {
@@ -21,12 +23,33 @@ class userBlogs extends Component {
     return { blogs };
   }
 
-  changeBlogStatus() {
-    alert('Changing blog status');
+  changeBlogStatus(status, blogId) {
+    updateBlog({ status }, blogId)
+      .then(() => {
+        Router.pushRoute('/userBlogs');
+      })
+      .catch(err => {
+        console.error(err.message);
+      });
   }
 
-  deleteBlog() {
-    alert('Deleting blog!');
+  deleteBlogWarning(blogId) {
+    const res = confirm('Are you sure you want to delete this blog post ???');
+
+    if (res) {
+      this.deleteBlog(blogId);
+    }
+  }
+
+  deleteBlog(blogId) {
+    deleteBlog(blogId)
+      .then(status => {
+        toast.info('Blog post DELETED!', {
+          position: toast.POSITION.BOTTOM_CENTER
+        });
+        Router.pushRoute('/userBlogs');
+      })
+      .catch(err => console.error(err.message));
   }
 
   separateBlogs(blogs) {
@@ -41,7 +64,9 @@ class userBlogs extends Component {
   }
 
   createStatus(status) {
-    return status === 'draft' ? 'Publish Story' : 'Make a draft';
+    return status === 'draft'
+      ? { view: 'Publish Story', value: 'published' }
+      : { view: 'Make a draft', value: 'draft' };
   }
 
   dropdownOptions = blog => {
@@ -49,10 +74,15 @@ class userBlogs extends Component {
 
     return [
       {
-        text: blogStatus,
-        handlers: { onClick: () => this.changeBlogStatus() }
+        text: blogStatus.view,
+        handlers: {
+          onClick: () => this.changeBlogStatus(blogStatus.value, blog._id)
+        }
       },
-      { text: 'Delete', handlers: { onClick: () => this.deleteBlog() } }
+      {
+        text: 'Delete',
+        handlers: { onClick: () => this.deleteBlogWarning(blog._id) }
+      }
     ];
   };
 
