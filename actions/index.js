@@ -70,6 +70,10 @@ export const deletePortfolio = portfolioId => {
 
 // --------------- BLOG ACTIONS ---------------
 
+export const getPublishedBlogs = async req => {
+  return await axiosInstance.get('/blogs').then(response => response.data);
+};
+
 export const getUserBlogs = async req => {
   return await axiosInstance
     .get('/blogs/me', setAuthHeader(req))

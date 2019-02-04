@@ -4,9 +4,40 @@ import BasePage from '../components/shared/BasePage';
 import { Row, Col, Container } from 'reactstrap';
 import { Link } from '../routes';
 import moment from 'moment';
+import { getPublishedBlogs } from '../actions';
 
 class Blogs extends Component {
+  static async getInitialProps({ req }) {
+    let blogs = [];
+    try {
+      blogs = await getPublishedBlogs(req);
+    } catch (err) {
+      console.error(err);
+    }
+
+    return { blogs };
+  }
+
+  renderPublishedBlogs = blogs =>
+    blogs.map((blog, index) => (
+      <div key={index} className="post-preview">
+        <Link route={`/blogs/${blog.slug}`}>
+          <a>
+            <h2 className="post-title">{blog.title}</h2>
+            <h3 className="post-subtitle">{blog.subTitle}</h3>
+          </a>
+        </Link>
+        <p className="post-meta">
+          Posted by
+          <a href="#"> {blog.author} </a>
+          {moment(blog.createdAt).format('LL')}
+        </p>
+      </div>
+    ));
+
   render() {
+    const { blogs } = this.props;
+
     return (
       <BaseLayout
         {...this.props.auth}
@@ -34,42 +65,7 @@ class Blogs extends Component {
         <BasePage className="blog-body">
           <Row>
             <Col md="10" lg="8" className="mx-auto">
-              {
-                <React.Fragment>
-                  <div className="post-preview">
-                    <Link route={`/blogs/blogId`}>
-                      <a>
-                        <h2 className="post-title">My first Blog Post</h2>
-                        <h3 className="post-subtitle">
-                          How I start programming...
-                        </h3>
-                      </a>
-                    </Link>
-                    <p className="post-meta">
-                      Posted by
-                      <a href="#"> Marcin Cholewka </a>
-                      {moment().format('LLLL')}
-                    </p>
-                  </div>
-                  <hr />
-                  <div className="post-preview">
-                    <Link route={`/blogs/blogId`}>
-                      <a>
-                        <h2 className="post-title">Second Blog Post</h2>
-                        <h3 className="post-subtitle">
-                          Where I learn programming...
-                        </h3>
-                      </a>
-                    </Link>
-                    <p className="post-meta">
-                      Posted by
-                      <a href="#"> Marcin Cholewka </a>
-                      {moment().format('LLLL')}
-                    </p>
-                  </div>
-                  <hr />
-                </React.Fragment>
-              }
+              {this.renderPublishedBlogs(blogs)}
               <div className="clearfix">
                 <a className="btn btn-primary float-right" href="#">
                   Older Posts &rarr;
