@@ -17,6 +17,9 @@ router.get(
 // GET BLOG BY ID
 router.get('/:id', blogController.getBlogById);
 
+// GET BLOG BY SLUG
+router.get('/s/:slug', blogController.getBlogBySlug);
+
 // POST CREATED PORTFOLIO
 router.post(
   '',
