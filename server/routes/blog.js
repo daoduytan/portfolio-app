@@ -1,17 +1,25 @@
 const express = require('express');
 const router = express.Router();
-const blogControler = require('../controllers/blog');
+const blogController = require('../controllers/blog');
 const authService = require('../services/auth');
 
 // GET BLOG BY ID
-router.get('/:id', blogControler.getBlogById);
+router.get('/:id', blogController.getBlogById);
 
 // POST CREATED PORTFOLIO
 router.post(
   '',
   authService.checkJWT,
   authService.checkRole('siteOwner'),
-  blogControler.createBlog
+  blogController.createBlog
+);
+
+// UPDATE POST
+router.patch(
+  '/:id',
+  authService.checkJWT,
+  authService.checkRole('siteOwner'),
+  blogController.updateBlog
 );
 
 module.exports = router;

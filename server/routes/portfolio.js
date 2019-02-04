@@ -1,28 +1,28 @@
 const express = require('express');
 const router = express.Router();
-const portfolioControler = require('../controllers/portfolio');
+const portfolioController = require('../controllers/portfolio');
 const authService = require('../services/auth');
 
 // GET ALL Portfolios
-router.get('', portfolioControler.getPortfolios);
+router.get('', portfolioController.getPortfolios);
 
 // POST CREATED PORTFOLIO
 router.post(
   '',
   authService.checkJWT,
   authService.checkRole('siteOwner'),
-  portfolioControler.postPortfolio
+  portfolioController.postPortfolio
 );
 
 // GET PORTFOLIO BY ID
-router.get('/:id', portfolioControler.getPortfolioById);
+router.get('/:id', portfolioController.getPortfolioById);
 
 // UPDATE PORTFOLIO
 router.patch(
   '/:id',
   authService.checkJWT,
   authService.checkRole('siteOwner'),
-  portfolioControler.updatePortfolio
+  portfolioController.updatePortfolio
 );
 
 // DELETE PORTFOLIO
@@ -30,7 +30,7 @@ router.delete(
   '/:id',
   authService.checkJWT,
   authService.checkRole('siteOwner'),
-  portfolioControler.deletePortfolio
+  portfolioController.deletePortfolio
 );
 
 module.exports = router;
