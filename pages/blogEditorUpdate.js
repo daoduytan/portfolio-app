@@ -6,6 +6,8 @@ import withAuth from '../components/hoc/withAuth';
 import SlateEditor from '../components/slate-editor/Editor';
 import { getBlogById, updateBlog } from '../actions';
 
+import { toast } from 'react-toastify';
+
 class BlogEditorUpdate extends Component {
   static async getInitialProps({ query }) {
     const blogId = query.id;
@@ -39,11 +41,22 @@ class BlogEditorUpdate extends Component {
 
     updateBlog(updatedBlog, blog._id)
       .then(updatedBlog => {
+        toast.success('Blog saved!', {
+          position: toast.POSITION.BOTTOM_CENTER
+        });
+
         this.setState({ isSaving: false });
       })
       .catch(err => {
         this.setState({ isSaving: false });
         const message = err.message || 'Server error';
+        toast.error(
+          'HOLY***!!! Unexpected error, copy your progress and refresh browser.',
+          {
+            position: toast.POSITION.BOTTOM_CENTER
+          }
+        );
+
         console.error(message);
       });
   }

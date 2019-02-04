@@ -6,6 +6,7 @@ import { Router } from '../routes';
 
 import SlateEditor from '../components/slate-editor/Editor';
 import { createBlog } from '../actions/index';
+import { toast } from 'react-toastify';
 
 class BlogEditor extends Component {
   constructor() {
@@ -32,11 +33,20 @@ class BlogEditor extends Component {
     createBlog(blog, lockId)
       .then(createdBlog => {
         this.setState({ isSaving: false });
+        toast.success('Blog saved!', {
+          position: toast.POSITION.BOTTOM_CENTER
+        });
         Router.pushRoute(`/blogs/${createdBlog._id}/edit`);
       })
       .catch(err => {
         this.setState({ isSaving: false });
         const message = err.message || 'Server error';
+        toast.error(
+          'HOLY***!!! Unexpected error, copy your progress and refresh browser.',
+          {
+            position: toast.POSITION.BOTTOM_CENTER
+          }
+        );
         console.error(message);
       });
   }

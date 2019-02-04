@@ -3,6 +3,7 @@ const BLOCK_TAGS = {
   p: 'paragraph',
   ul: 'bulleted-list',
   ol: 'numbered-list',
+  li: 'list-item',
   h1: 'heading-one',
   h2: 'heading-two'
 };
