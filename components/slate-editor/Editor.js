@@ -1,8 +1,13 @@
 import React from 'react';
 import HoverMenu from './HoverMenu';
+import ControllMenu from './ControllMenu';
 import { Editor } from 'slate-react';
 import { renderMark, renderNode } from './renderers';
 import { initialValue } from './initial-value';
+
+import Html from 'slate-html-serializer';
+import { rules } from './rules';
+const html = new Html({ rules });
 
 export default class SlateEditor extends React.Component {
   state = {
@@ -47,6 +52,31 @@ export default class SlateEditor extends React.Component {
       rect.width / 2}px`;
   };
 
+  getTitle() {
+    const { value } = this.state;
+    const firstBlock = value.document.getBlocks().get(0);
+    const secondBlock = value.document.getBlocks().get(1);
+
+    const title = firstBlock && firstBlock.text ? firstBlock.text : 'No title';
+    const subtitle =
+      secondBlock && secondBlock.text ? secondBlock.text : 'No subtitle';
+
+    return {
+      title,
+      subtitle
+    };
+  }
+
+  save() {
+    const { value } = this.state;
+    const { save } = this.props;
+    const headingValues = this.getTitle();
+    const text = html.serialize(value);
+
+    debugger;
+    save(headingValues);
+  }
+
   render() {
     const { isLoaded } = this.state;
 
@@ -54,12 +84,14 @@ export default class SlateEditor extends React.Component {
       <>
         {isLoaded && (
           <Editor
+            {...this.props}
             placeholder="Enter some text..."
             value={this.state.value}
             onChange={this.onChange}
             renderMark={renderMark}
             renderNode={renderNode}
             renderEditor={this.renderEditor}
+            className="data-slate-editor"
           />
         )}
       </>
@@ -68,8 +100,11 @@ export default class SlateEditor extends React.Component {
 
   renderEditor = (props, editor, next) => {
     const children = next();
+    const { isLoading } = props;
+
     return (
       <React.Fragment>
+        <ControllMenu isLoading={isLoading} save={() => this.save()} />
         {children}
         <HoverMenu innerRef={menu => (this.menu = menu)} editor={editor} />
       </React.Fragment>
