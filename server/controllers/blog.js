@@ -13,6 +13,17 @@ exports.getBlogById = (req, res) => {
   });
 };
 
+exports.getUserBlogs = (req, res) => {
+  const userId = req.user.sub;
+
+  Blog.find({ userId }, function(err, userBlogs) {
+    if (err) {
+      return res.status(422).send(err);
+    }
+    return res.json(userBlogs);
+  });
+};
+
 exports.updateBlog = (req, res) => {
   const blogId = req.params.id;
   const blogData = req.body;

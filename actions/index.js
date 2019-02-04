@@ -36,6 +36,8 @@ export const getSecretData = async req => {
     .then(response => response.data);
 };
 
+// --------------- PORTFOLIO ACTIONS ---------------
+
 export const getAllPortfolios = async () => {
   return await axiosInstance.get('/portfolios').then(response => response.data);
 };
@@ -63,6 +65,14 @@ export const updatePortfolio = async portfolioData => {
 export const deletePortfolio = portfolioId => {
   return axiosInstance
     .delete(`/portfolios/${portfolioId}`, setAuthHeader())
+    .then(response => response.data);
+};
+
+// --------------- BLOG ACTIONS ---------------
+
+export const getUserBlogs = async req => {
+  return await axiosInstance
+    .get('/blogs/me', setAuthHeader(req))
     .then(response => response.data);
 };
 
