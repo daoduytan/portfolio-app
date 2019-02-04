@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import BaseLayout from '../components/layouts/BaseLayout';
 import BasePage from '../components/shared/BasePage';
 import withAuth from '../components/hoc/withAuth';
+import { Router } from '../routes';
 
 import SlateEditor from '../components/slate-editor/Editor';
 import { createBlog } from '../actions/index';
@@ -11,13 +12,15 @@ class BlogEditor extends Component {
     super();
 
     this.state = {
-      isSaving: false
+      isSaving: false,
+      lockId: Math.floor(1000 + Math.random() * 9000)
     };
 
     this.saveBlog = this.saveBlog.bind(this);
   }
 
   saveBlog(story, heading) {
+    const { lockId } = -this.state;
     const blog = {};
 
     (blog.title = heading.title),
@@ -26,10 +29,10 @@ class BlogEditor extends Component {
 
     this.setState({ isSaving: true });
 
-    createBlog(blog)
-      .then(data => {
+    createBlog(blog, lockId)
+      .then(createdBlog => {
         this.setState({ isSaving: false });
-        console.log(data);
+        Router.pushRoute(`/blogs/${createdBlog._id}/edit`);
       })
       .catch(err => {
         this.setState({ isSaving: false });
