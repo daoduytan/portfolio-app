@@ -8,22 +8,43 @@ class Index extends Component {
   constructor(props) {
     super(props);
 
+    this.state = {
+      isFlipping: false
+    };
+
     this.roles = [
-      'Web Developer',
+      'Software Engineer',
       'Java Script',
-      'MERN stack',
+      'React.js',
       'Team player',
       'American Football player',
       'Runner'
     ];
   }
 
+  componentDidMount() {
+    this.animateCard();
+  }
+
+  componentWillUnmount() {
+    this.cardAnimationInterval && clearInterval(this.cardAnimationInterval);
+  }
+
+  animateCard() {
+    this.cardAnimationInterval = setInterval(() => {
+      this.setState({
+        isFlipping: !this.state.isFlipping
+      });
+    }, 5000);
+  }
+
   render() {
     const { isAuthenticated, user } = this.props.auth;
+    const { isFlipping } = this.state;
 
     return (
       <BaseLayout
-        className="cover overflow"
+        className={`overflow ${isFlipping ? 'cover-1' : 'cover'}`}
         {...this.props.auth}
         headerType="index"
       >
@@ -31,22 +52,37 @@ class Index extends Component {
           <div className="background-image">
             <img src="/static/images/background-index-0.png" />
           </div>
-
           <Container>
             <Row>
               <Col md="6">
                 <div className="hero-section">
-                  <div className={`flipper`}>
-                    <div className="back">
+                  <div className={`flipper ${isFlipping ? 'isFlipping' : ''}`}>
+                    <div className="front">
                       <div className="hero-section-content">
-                        <h2> Web Developer </h2>
+                        <h2> Software Engineer </h2>
                         <div className="hero-section-content-intro">
                           Have a look at my portfolio and job history.
                         </div>
                       </div>
                       <img
                         className="image"
-                        src="/static/images/section-0.png"
+                        src="/static/images/section-1.png"
+                      />
+                      <div className="shadow-custom">
+                        <div className="shadow-inner"> </div>
+                      </div>
+                    </div>
+                    <div className="back">
+                      <div className="hero-section-content">
+                        <h2> Get Your projects done </h2>
+                        <div className="hero-section-content-intro">
+                          Professional and top quality service in web
+                          development.
+                        </div>
+                      </div>
+                      <img
+                        className="image"
+                        src="/static/images/section-2.png"
                       />
                       <div className="shadow-custom">
                         <div className="shadow-inner"> </div>
@@ -78,7 +114,6 @@ class Index extends Component {
                   cursorChar="|"
                   className="self-typed"
                 />
-
                 <div className="hero-welcome-bio">
                   <h1>Let's take a look on my work.</h1>
                 </div>
