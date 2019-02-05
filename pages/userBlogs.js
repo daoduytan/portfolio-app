@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import BaseLayout from '../components/layouts/BaseLayout';
 import BasePage from '../components/shared/BasePage';
-import { Container, Row, Col } from 'reactstrap';
+import { Container, Row, Col, Button } from 'reactstrap';
 import { Link, Router } from '../routes';
 import PortButtonDropdown from '../components/PortButtonDropdown';
 
@@ -116,10 +116,15 @@ class userBlogs extends Component {
             <div className="row">
               <div className="col-lg-8 col-md-10 mx-auto">
                 <div className="site-heading">
-                  <h1>Fresh Blogs</h1>
+                  <h1>Blogs dashboard</h1>
                   <span className="subheading">
-                    Programming, travelling, sport...
+                    Let's write some nice posts today{' '}
                   </span>
+                  <Link route="/blogs/new">
+                    <Button className="m-4" color="primary">
+                      Create a new post.
+                    </Button>
+                  </Link>
                 </div>
               </div>
             </div>

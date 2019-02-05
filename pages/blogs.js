@@ -5,6 +5,7 @@ import { Row, Col, Container } from 'reactstrap';
 import { Link } from '../routes';
 import moment from 'moment';
 import { getPublishedBlogs } from '../actions';
+import { shortenText } from '../helpers/utils';
 
 class Blogs extends Component {
   static async getInitialProps({ req }) {
@@ -24,7 +25,7 @@ class Blogs extends Component {
         <Link route={`/blogs/${blog.slug}`}>
           <a>
             <h2 className="post-title">{blog.title}</h2>
-            <h3 className="post-subtitle">{blog.subTitle}</h3>
+            <h3 className="post-subtitle">{shortenText(blog.subTitle, 50)}</h3>
           </a>
         </Link>
         <p className="post-meta">
