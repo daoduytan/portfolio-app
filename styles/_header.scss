@@ -48,6 +48,8 @@
 
     .port-dropdown-toggle {
       color: white;
+      margin-left: 10px;
+      margin-right: 10px;
     }
   }
 }
@@ -55,4 +57,11 @@
 .port-navbar.port-nav-base.port-nav-default {
   padding: 30px;
   background-color: $indigo !important;
+}
+
+.menu-open {
+  background-color: #6610f2 !important;
+}
+
+.bg-transparent.menu-close {
 }

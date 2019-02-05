@@ -117,12 +117,15 @@ class Header extends Component {
   }
 
   render() {
-    const { isAuthenticated, user, className } = this.props;
+    const { isAuthenticated, className } = this.props;
+    const { isOpen } = this.state;
+
+    const menuOpenClass = isOpen ? 'menu-open' : 'menu-close';
 
     return (
       <div>
         <Navbar
-          className={`port-navbar port-nav-base absolute ${className}`}
+          className={`port-navbar port-nav-base absolute ${className} ${menuOpenClass}`}
           dark
           expand="md"
         >
