@@ -47,10 +47,14 @@ class Index extends Component {
         className={`overflow ${isFlipping ? 'cover-1' : 'cover'}`}
         {...this.props.auth}
         headerType="index"
+        title="Marcin Cholewka - portfolio"
       >
         <div className="main-section">
           <div className="background-image">
-            <img src="/static/images/background-index-0.png" />
+            <img
+              src="/static/images/background-index-0.png"
+              alt="background with bricks"
+            />
           </div>
           <Container>
             <Row>
@@ -67,6 +71,7 @@ class Index extends Component {
                       <img
                         className="image"
                         src="/static/images/section-1.png"
+                        alt="Guy working on the desk, on welcome page, front card."
                       />
                       <div className="shadow-custom">
                         <div className="shadow-inner"> </div>
@@ -83,6 +88,7 @@ class Index extends Component {
                       <img
                         className="image"
                         src="/static/images/section-2.png"
+                        alt="Guy prepare to work, on welcome page, back card."
                       />
                       <div className="shadow-custom">
                         <div className="shadow-inner"> </div>
@@ -114,9 +120,7 @@ class Index extends Component {
                   cursorChar="|"
                   className="self-typed"
                 />
-                <div className="hero-welcome-bio">
-                  <h1>Let's take a look on my work.</h1>
-                </div>
+                <div className="hero-welcome-bio" />
               </Col>
             </Row>
           </Container>

@@ -3,12 +3,47 @@ import Header from '../shared/Header';
 import Head from 'next/head';
 
 const BaseLayout = props => {
-  const { className, children, isAuthenticated, user, isSiteOwner } = props;
+  const {
+    className,
+    children,
+    isAuthenticated,
+    user,
+    isSiteOwner,
+    title,
+    cannonical
+  } = props;
   const headerType = props.headerType || 'default';
 
   return (
     <>
       <Head>
+        <title>{title}</title>
+        <meta
+          name="description"
+          content="My name is Marcin Cholewka and I am an junior software
+                  engineer and freelance developer."
+        />
+        <meta
+          name="keywords"
+          content="cholewka portfolio, cholewka developer, cholewka programming, cholewka katowice, cholewka javascript"
+        />
+
+        <meta
+          property="og:title"
+          content="Marcin Cholewka - software engineer, developer, bloger"
+        />
+        <meta property="og:locale" content="en_EU" />
+        <meta property="og:url" content="http://marcincholewka.pl" />
+        <meta property="og:type" content="website" />
+        <meta
+          property="og:description"
+          content="My name is Marcin Cholewka and I am an junior software
+                  engineer and freelance developer."
+        />
+        {cannonical && (
+          <link rel="cannonical" href={`http://localhost:3000${cannonical}`} />
+        )}
+        <link rel="icon" type="image.ico" href="/static/favicon.ico" />
         <link
           rel="stylesheet"
           href="https://use.fontawesome.com/releases/v5.7.0/css/all.css"
