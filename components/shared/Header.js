@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 
 import Link from 'next/link';
 import auth0 from '../../services/auth0';
+import ActiveLink from '../ActiveLink';
 
 import {
   Collapse,
@@ -16,9 +17,9 @@ const BootstrapNavLink = props => {
   const { route, text } = props;
 
   return (
-    <Link href={route}>
+    <ActiveLink activeClassName="active" route={route}>
       <a className="nav-link port-navbar-link">{text} </a>
-    </Link>
+    </ActiveLink>
   );
 };
 
