@@ -5,12 +5,14 @@ import axios from 'axios';
 
 import { getCookieFromReq } from '../helpers/utils';
 
+const CLIENT_ID = process.env.CLIENT_ID;
+
 class Auth0 {
   constructor() {
     this.auth0 = new auth0.WebAuth({
       domain: 'marcin-cholewka.eu.auth0.com',
-      clientID: 'KCPmzyc877FPttQJKXBgoCYvSABSosE2',
-      redirectUri: 'http://localhost:3000/callback',
+      clientID: CLIENT_ID,
+      redirectUri: `${process.env.BASE_URL}/callback`,
       responseType: 'token id_token',
       scope: 'openid profile'
     });
@@ -34,23 +36,19 @@ class Auth0 {
   };
 
   setSession = authResult => {
-    // Set the time that the access token will expire at
     const expiresAt = JSON.stringify(
       authResult.expiresIn * 1000 + new Date().getTime()
     );
 
-    Cookies.set('user', authResult.idTokenPayload);
     Cookies.set('jwt', authResult.idToken);
-    Cookies.set('expiresAt', expiresAt);
   };
 
   logout = () => {
-    Cookies.remove('user');
     Cookies.remove('jwt');
-    Cookies.remove('expiresAt');
+
     this.auth0.logout({
       returnTo: '',
-      clientID: 'KCPmzyc877FPttQJKXBgoCYvSABSosE2'
+      clientID: CLIENT_ID
     });
   };
 

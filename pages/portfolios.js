@@ -14,7 +14,7 @@ class Portfolios extends Component {
     try {
       portfolios = await getAllPortfolios();
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
     return { portfolios };
   }

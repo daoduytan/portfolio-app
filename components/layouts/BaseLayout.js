@@ -33,7 +33,7 @@ const BaseLayout = props => {
           content="Marcin Cholewka - software engineer, developer, bloger"
         />
         <meta property="og:locale" content="en_EU" />
-        <meta property="og:url" content="http://marcincholewka.pl" />
+        <meta property="og:url" content={`${process.env.BASE_URL}`} />
         <meta property="og:type" content="website" />
         <meta
           property="og:description"
@@ -41,7 +41,10 @@ const BaseLayout = props => {
                   engineer and freelance developer."
         />
         {cannonical && (
-          <link rel="cannonical" href={`http://localhost:3000${cannonical}`} />
+          <link
+            rel="cannonical"
+            href={`${process.env.BASE_URL}${cannonical}`}
+          />
         )}
         <link rel="icon" type="image.ico" href="/static/favicon.ico" />
         <link
