@@ -10,15 +10,20 @@ import {
   NavbarToggler,
   NavbarBrand,
   Nav,
-  NavItem
+  NavItem,
+  Dropdown,
+  DropdownToggle,
+  DropdownMenu,
+  DropdownItem
 } from 'reactstrap';
 
 const BootstrapNavLink = props => {
-  const { route, text } = props;
+  const { route, title } = props;
+  const className = props.className || '';
 
   return (
     <ActiveLink activeClassName="active" route={route}>
-      <a className="nav-link port-navbar-link">{text} </a>
+      <a className={`nav-link port-navbar-link ${className}`}>{title} </a>
     </ActiveLink>
   );
 };
@@ -46,16 +51,71 @@ class Header extends Component {
   constructor(props) {
     super(props);
 
-    this.toggle = this.toggle.bind(this);
     this.state = {
-      isOpen: false
+      isOpen: false,
+      dropdownOpen: false
     };
   }
-  toggle() {
+  toggle = () => {
     this.setState({
       isOpen: !this.state.isOpen
     });
+  };
+
+  toggleDropdown = () => {
+    this.setState({
+      dropdownOpen: !this.state.dropdownOpen
+    });
+  };
+
+  renderBlogMenu() {
+    const { isSiteOwner } = this.props;
+
+    if (isSiteOwner) {
+      return (
+        <Dropdown
+          className="port-navbar-link port-dropdown-menu"
+          nav
+          isOpen={this.state.dropdownOpen}
+          toggle={this.toggleDropdown}
+        >
+          <DropdownToggle className="port-dropdown-toggle" nav caret>
+            Blog
+          </DropdownToggle>
+          <DropdownMenu>
+            <DropdownItem>
+              <BootstrapNavLink
+                className="port-dropdown-item"
+                route="/blogs"
+                title="Blog"
+              />{' '}
+            </DropdownItem>
+
+            <DropdownItem>
+              <BootstrapNavLink
+                className="port-dropdown-item"
+                route="/blogs/new"
+                title="Create a post"
+              />{' '}
+            </DropdownItem>
+            <DropdownItem>
+              <BootstrapNavLink
+                className="port-dropdown-item"
+                route="/blogs/dashboard"
+                title="Posts dashboard"
+              />{' '}
+            </DropdownItem>
+          </DropdownMenu>
+        </Dropdown>
+      );
+    }
+    return (
+      <NavItem className="port-navbar-item">
+        <BootstrapNavLink route="/blogs" title="Blog" />
+      </NavItem>
+    );
   }
+
   render() {
     const { isAuthenticated, user, className } = this.props;
 
@@ -73,19 +133,17 @@ class Header extends Component {
           <Collapse isOpen={this.state.isOpen} navbar>
             <Nav className="ml-auto" navbar>
               <NavItem className="port-navbar-item">
-                <BootstrapNavLink route="/" text="Home" />
+                <BootstrapNavLink route="/" title="Home" />
               </NavItem>
               <NavItem className="port-navbar-item">
-                <BootstrapNavLink route="/about" text="About" />
+                <BootstrapNavLink route="/about" title="About" />
               </NavItem>
               <NavItem className="port-navbar-item">
-                <BootstrapNavLink route="/portfolios" text="Portfolios" />
+                <BootstrapNavLink route="/portfolios" title="Portfolios" />
               </NavItem>
+              {this.renderBlogMenu()}
               <NavItem className="port-navbar-item">
-                <BootstrapNavLink route="/blogs" text="Blog" />
-              </NavItem>
-              <NavItem className="port-navbar-item">
-                <BootstrapNavLink route="/cv" text="CV" />
+                <BootstrapNavLink route="/cv" title="CV" />
               </NavItem>
               {!isAuthenticated && (
                 <NavItem className="port-navbar-item">

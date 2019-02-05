@@ -36,6 +36,20 @@
       }
     }
   }
+
+  .port-dropdown-menu {
+    .port-dropdown-item {
+      color: #4e4e4e;
+
+      &.active {
+        color: #c8ff00;
+      }
+    }
+
+    .port-dropdown-toggle {
+      color: white;
+    }
+  }
 }
 
 .port-navbar.port-nav-base.port-nav-default {
