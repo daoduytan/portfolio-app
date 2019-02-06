@@ -1,8 +1,8 @@
 import { Button } from 'reactstrap';
 
-const ControllMenu = props => {
+const ControlMenu = props => {
   return (
-    <div className="controll-menu">
+    <div className="control-menu">
       <h1 className="title">Write your story...</h1>
       <div className="status-box">
         {props.isLoading ? 'Saving...' : 'Saved'}
@@ -14,4 +14,4 @@ const ControllMenu = props => {
   );
 };
 
-export default ControllMenu;
+export default ControlMenu;
