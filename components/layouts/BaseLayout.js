@@ -40,6 +40,10 @@ const BaseLayout = props => {
           content="My name is Marcin Cholewka and I am an junior software
                   engineer and freelance developer."
         />
+        <link
+          href="https://fonts.googleapis.com/css?family=Montserrat:400,700"
+          rel="stylesheet"
+        />
         {cannonical && (
           <link
             rel="cannonical"
