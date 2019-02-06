@@ -1,6 +1,6 @@
 import React from 'react';
 import HoverMenu from './HoverMenu';
-import ControllMenu from './ControllMenu';
+import ControlMenu from './ControlMenu';
 import { Editor } from 'slate-react';
 import { renderMark, renderNode } from './renderers';
 import { initialValue } from './initial-value';
@@ -122,9 +122,14 @@ export default class SlateEditor extends React.Component {
 
     return (
       <React.Fragment>
-        <ControllMenu isLoading={isLoading} save={() => this.save()} />
+        <ControlMenu isLoading={isLoading} save={() => this.save()} />
         {children}
         <HoverMenu innerRef={menu => (this.menu = menu)} editor={editor} />
+        <style jsx>
+          {`
+            @import url(' https://fonts.googleapis.com/icon?family=Material+Icons ');
+          `}
+        </style>
       </React.Fragment>
     );
   };

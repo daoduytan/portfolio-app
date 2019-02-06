@@ -120,6 +120,11 @@ class Blogs extends Component {
             </Container>
           </footer>
         </BasePage>
+        <style jsx>
+          {`
+            @import url(' https://use.fontawesome.com/releases/v5.7.0/css/all.css ');
+          `}
+        </style>
       </BaseLayout>
     );
   }
