@@ -14,7 +14,7 @@ const app = next({ dev });
 const handle = routes.getRequestHandler(app);
 const config = require('./config');
 
-const bookRoutes = require('./routes/book');
+const portfolioRoutes = require('./routes/portfolio');
 const experienceRoutes = require('./routes/experience');
 const blogRoutes = require('./routes/blog');
 
@@ -24,17 +24,6 @@ const robotsOptions = {
     'Content-Type': 'text/plain;charset=UTF-8'
   }
 };
-
-const secretData = [
-  {
-    title: 'SecretData 1',
-    description: 'Info how to wield a world'
-  },
-  {
-    title: 'SecretData 2',
-    description: 'Secret place to do it'
-  }
-];
 
 mongoose
   .connect(config.DB_URI, { useNewUrlParser: true })
@@ -56,26 +45,13 @@ app
 
     server.use(bodyParser.json());
 
-    server.use('/api/v1/books', bookRoutes);
+    server.use('/api/v1/portfolios', portfolioRoutes);
     server.use('/api/v1/experiences', experienceRoutes);
     server.use('/api/v1/blogs', blogRoutes);
 
     server.get('/robots.txt', (req, res) => {
       return res.status(200).sendFile('robots.txt', robotsOptions);
     });
-
-    server.get('/api/v1/secret', authService.checkJWT, (req, res) => {
-      return res.json(secretData);
-    });
-
-    server.get(
-      '/api/v1/onlysiteowner',
-      authService.checkJWT,
-      authService.checkRole('siteOwner'),
-      (req, res) => {
-        return res.json(secretData);
-      }
-    );
 
     server.get('*', (req, res) => {
       return handle(req, res);
