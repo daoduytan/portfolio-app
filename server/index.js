@@ -15,7 +15,7 @@ const handle = routes.getRequestHandler(app);
 const config = require('./config');
 
 const bookRoutes = require('./routes/book');
-const portfolioRoutes = require('./routes/portfolio');
+const experienceRoutes = require('./routes/experience');
 const blogRoutes = require('./routes/blog');
 
 const robotsOptions = {
@@ -57,7 +57,7 @@ app
     server.use(bodyParser.json());
 
     server.use('/api/v1/books', bookRoutes);
-    server.use('/api/v1/portfolios', portfolioRoutes);
+    server.use('/api/v1/experiences', experienceRoutes);
     server.use('/api/v1/blogs', blogRoutes);
 
     server.get('/robots.txt', (req, res) => {

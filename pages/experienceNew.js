@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import BaseLayout from '../components/layouts/BaseLayout';
 import BasePage from '../components/shared/BasePage';
 import withAuth from '../components/hoc/withAuth';
-import PortfolioNewForm from '../components/portfolios/PortfolioNewForm';
+import ExperienceNewForm from '../components/experiences/ExperienceNewForm';
 import { Row, Col } from 'reactstrap';
-import { createPortfolio } from '../actions/index';
+import { createExperience } from '../actions/index';
 import { Router } from '../routes';
 import moment from 'moment';
 
@@ -18,7 +18,7 @@ const INITIAL_VALUES = {
   endDate: moment()
 };
 
-class PortfolioNew extends Component {
+class ExperienceNew extends Component {
   constructor(props) {
     super();
 
@@ -26,18 +26,18 @@ class PortfolioNew extends Component {
       error: undefined
     };
 
-    this.savePortfolio = this.savePortfolio.bind(this);
+    this.saveExperience = this.saveExperience.bind(this);
   }
 
-  savePortfolio(portfolioData, { setSubmitting }) {
+  saveExperience(experienceData, { setSubmitting }) {
     setSubmitting(true);
 
-    createPortfolio(portfolioData)
-      .then(portfolio => {
+    createExperience(experienceData)
+      .then(experience => {
         setSubmitting(false);
 
         this.setState({ error: undefined });
-        Router.pushRoute('/portfolios');
+        Router.pushRoute('/experiences');
       })
       .catch(err => {
         const error = err.message || 'Server Error!';
@@ -53,15 +53,15 @@ class PortfolioNew extends Component {
     return (
       <BaseLayout {...this.props.auth}>
         <BasePage
-          className="portfolio-create-page"
-          title="Create New Portfolio"
+          className="experience-create-page"
+          title="Create New Experience"
         >
           <Row>
             <Col md="6">
-              <PortfolioNewForm
+              <ExperienceNewForm
                 initialValues={INITIAL_VALUES}
                 error={error}
-                onSubmit={this.savePortfolio}
+                onSubmit={this.saveExperience}
               />
             </Col>
           </Row>
@@ -71,4 +71,4 @@ class PortfolioNew extends Component {
   }
 }
 
-export default withAuth('siteOwner')(PortfolioNew);
+export default withAuth('siteOwner')(ExperienceNew);

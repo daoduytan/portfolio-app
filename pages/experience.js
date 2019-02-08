@@ -4,36 +4,36 @@ import axios from 'axios';
 import BaseLayout from '../components/layouts/BaseLayout';
 import BasePage from '../components/shared/BasePage';
 
-class Portfolio extends Component {
+class Experience extends Component {
   static async getInitialProps({ query }) {
-    const portfolioId = query.id;
-    let portfolio = {};
+    const experienceId = query.id;
+    let experience = {};
     try {
       const response = await axios.get(
-        `https://jsonplaceholder.typicode.com/posts/${portfolioId}`
+        `https://jsonplaceholder.typicode.com/posts/${experienceId}`
       );
-      portfolio = response.data;
+      experience = response.data;
     } catch (error) {
       console.error(error);
     }
 
-    return { portfolio };
+    return { experience };
   }
 
   render() {
-    const { portfolio } = this.props;
+    const { experience } = this.props;
 
     return (
       <BaseLayout {...this.props.auth}>
         <BasePage>
-          <h1>{portfolio.title}</h1>
-          <p>POST_ID: {portfolio.id}</p>
-          <p>BODY: {portfolio.body}</p>
-          <p>USER_ID: {portfolio.userId}</p>
+          <h1>{experience.title}</h1>
+          <p>POST_ID: {experience.id}</p>
+          <p>BODY: {experience.body}</p>
+          <p>USER_ID: {experience.userId}</p>
         </BasePage>
       </BaseLayout>
     );
   }
 }
 
-export default withRouter(Portfolio);
+export default withRouter(Experience);

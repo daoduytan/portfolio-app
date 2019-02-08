@@ -1,36 +1,36 @@
 const express = require('express');
 const router = express.Router();
-const portfolioController = require('../controllers/portfolio');
+const experienceController = require('../controllers/experience');
 const authService = require('../services/auth');
 
-// GET ALL Portfolios
-router.get('', portfolioController.getPortfolios);
+// GET ALL Experience
+router.get('', experienceController.getExperience);
 
-// POST CREATED PORTFOLIO
+// POST CREATED experience
 router.post(
   '',
   authService.checkJWT,
   authService.checkRole('siteOwner'),
-  portfolioController.postPortfolio
+  experienceController.postExperience
 );
 
-// GET PORTFOLIO BY ID
-router.get('/:id', portfolioController.getPortfolioById);
+// GET Experience BY ID
+router.get('/:id', experienceController.getExperienceById);
 
-// UPDATE PORTFOLIO
+// UPDATE Experience
 router.patch(
   '/:id',
   authService.checkJWT,
   authService.checkRole('siteOwner'),
-  portfolioController.updatePortfolio
+  experienceController.updateExperience
 );
 
-// DELETE PORTFOLIO
+// DELETE Experience
 router.delete(
   '/:id',
   authService.checkJWT,
   authService.checkRole('siteOwner'),
-  portfolioController.deletePortfolio
+  experienceController.deleteExperience
 );
 
 module.exports = router;

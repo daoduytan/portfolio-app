@@ -2,41 +2,41 @@ import React from 'react';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import moment from 'moment';
 
-class PortfolioCardDetail extends React.Component {
+class ExperienceCardDetail extends React.Component {
   render() {
-    const { isOpen, toggle, portfolio } = this.props;
+    const { isOpen, toggle, experience } = this.props;
 
     return (
       <div>
         <Modal isOpen={isOpen} toggle={toggle}>
           <ModalHeader toggle={toggle}>
-            <b>{portfolio.title}</b>
+            <b>{experience.title}</b>
           </ModalHeader>
           <ModalBody>
             <p>
               <b>Description : </b>
-              {portfolio.description}
+              {experience.description}
             </p>
             <p>
               <b>Company : </b>
-              {portfolio.company}
+              {experience.company}
             </p>
             <p>
               <b>Position : </b>
-              {portfolio.position}
+              {experience.position}
             </p>
             <p>
               <b>Location : </b>
-              {portfolio.location}
+              {experience.location}
             </p>
             <p>
               <b>Start Date : </b>
-              {moment(portfolio.startDate).format('MMMM YYYY')}
+              {moment(experience.startDate).format('MMMM YYYY')}
             </p>
             <p>
               <b>End Date : </b>
-              {portfolio.endDate
-                ? moment(portfolio.endDate).format('MMMM YYYY')
+              {experience.endDate
+                ? moment(experience.endDate).format('MMMM YYYY')
                 : 'Still working here.'}
             </p>
           </ModalBody>
@@ -51,4 +51,4 @@ class PortfolioCardDetail extends React.Component {
   }
 }
 
-export default PortfolioCardDetail;
+export default ExperienceCardDetail;

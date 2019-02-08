@@ -2,22 +2,22 @@ import React, { Component } from 'react';
 import BaseLayout from '../components/layouts/BaseLayout';
 import BasePage from '../components/shared/BasePage';
 import withAuth from '../components/hoc/withAuth';
-import PortfolioNewForm from '../components/portfolios/PortfolioNewForm';
+import ExperienceNewForm from '../components/experiences/ExperienceNewForm';
 import { Row, Col } from 'reactstrap';
-import { updatePortfolio, getPortfolioById } from '../actions/index';
+import { updateExperience, getExperienceById } from '../actions/index';
 import { Router } from '../routes';
 
-class PortfolioEdit extends Component {
+class ExperienceEdit extends Component {
   static async getInitialProps({ query }) {
-    let portfolio = {};
+    let experience = {};
 
     try {
-      portfolio = await getPortfolioById(query.id);
+      experience = await getExperienceById(query.id);
     } catch (error) {
       console.error(error);
     }
 
-    return { portfolio };
+    return { experience };
   }
 
   constructor(props) {
@@ -27,17 +27,17 @@ class PortfolioEdit extends Component {
       error: undefined
     };
 
-    this.updatePortfolio = this.updatePortfolio.bind(this);
+    this.updateExperience = this.updateExperience.bind(this);
   }
 
-  updatePortfolio(portfolioData, { setSubmitting }) {
+  updateExperience(experienceData, { setSubmitting }) {
     setSubmitting(true);
 
-    updatePortfolio(portfolioData)
-      .then(portfolio => {
+    updateExperience(experienceData)
+      .then(experience => {
         setSubmitting(false);
         this.setState({ error: undefined });
-        Router.pushRoute('/portfolios');
+        Router.pushRoute('/experiences');
       })
       .catch(err => {
         const error = err.message || 'Server Error!';
@@ -48,17 +48,17 @@ class PortfolioEdit extends Component {
 
   render() {
     const { error } = this.state;
-    const { portfolio } = this.props;
+    const { experience } = this.props;
 
     return (
       <BaseLayout {...this.props.auth}>
-        <BasePage className="portfolio-create-page" title="Update Portfolio">
+        <BasePage className="experience-create-page" title="Update Experience">
           <Row>
             <Col md="6">
-              <PortfolioNewForm
-                initialValues={portfolio}
+              <ExperienceNewForm
+                initialValues={experience}
                 error={error}
-                onSubmit={this.updatePortfolio}
+                onSubmit={this.updateExperience}
               />
             </Col>
           </Row>
@@ -68,4 +68,4 @@ class PortfolioEdit extends Component {
   }
 }
 
-export default withAuth('siteOwner')(PortfolioEdit);
+export default withAuth('siteOwner')(ExperienceEdit);

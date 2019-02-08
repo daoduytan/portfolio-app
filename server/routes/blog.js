@@ -20,7 +20,7 @@ router.get('/:id', blogController.getBlogById);
 // GET BLOG BY SLUG
 router.get('/s/:slug', blogController.getBlogBySlug);
 
-// POST CREATED PORTFOLIO
+// POST CREATED POST
 router.post(
   '',
   authService.checkJWT,

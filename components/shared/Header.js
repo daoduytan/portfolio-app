@@ -142,7 +142,7 @@ class Header extends Component {
                 <BootstrapNavLink route="/about" title="About" />
               </NavItem>
               <NavItem className="port-navbar-item">
-                <BootstrapNavLink route="/portfolios" title="Portfolios" />
+                <BootstrapNavLink route="/experiences" title="Experience" />
               </NavItem>
               {this.renderBlogMenu()}
               <NavItem className="port-navbar-item">

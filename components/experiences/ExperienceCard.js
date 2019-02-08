@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import PortfolioCardDetail from './PortfolioCardDetail';
+import ExperienceCardDetail from './ExperienceCardDetail';
 import { Card, CardText, CardBody, CardTitle, CardHeader } from 'reactstrap';
 
-export default class PortfolioCard extends Component {
+export default class ExperienceCard extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -19,28 +19,28 @@ export default class PortfolioCard extends Component {
   }
 
   render() {
-    const { portfolio, children } = this.props;
+    const { experience, children } = this.props;
     const { isOpen } = this.state;
 
     return (
       <>
         <span onClick={this.handleToggle}>
-          <PortfolioCardDetail
+          <ExperienceCardDetail
             toggle={this.handleToggle}
-            portfolio={portfolio}
+            experience={experience}
             isOpen={isOpen}
           />
-          <Card className="portfolio-card">
-            <CardHeader className="portfolio-card-header">
-              {portfolio.position}
+          <Card className="experience-card">
+            <CardHeader className="experience-card-header">
+              {experience.position}
             </CardHeader>
             <CardBody>
-              <p className="portfolio-card-city"> {portfolio.location} </p>
-              <CardTitle className="portfolio-card-title">
-                {portfolio.title}
+              <p className="experience-card-city"> {experience.location} </p>
+              <CardTitle className="experience-card-title">
+                {experience.title}
               </CardTitle>
-              <CardText className="portfolio-card-text">
-                {portfolio.description}
+              <CardText className="experience-card-text">
+                {experience.description}
               </CardText>
               <div className="readMore">{children}</div>
             </CardBody>

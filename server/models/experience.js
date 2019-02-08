@@ -7,7 +7,7 @@ const stringType = maxlength => ({
   maxlength: maxlength
 });
 
-const portfolioSchema = new Schema({
+const experienceSchema = new Schema({
   userId: { type: String, required: true },
   title: stringType(256),
   company: stringType(256),
@@ -18,4 +18,4 @@ const portfolioSchema = new Schema({
   endDate: Date
 });
 
-module.exports = mongoose.model('Portfolio', portfolioSchema);
+module.exports = mongoose.model('Experience', experienceSchema);

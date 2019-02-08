@@ -3,57 +3,57 @@ import BaseLayout from '../components/layouts/BaseLayout';
 import BasePage from '../components/shared/BasePage';
 import { Router } from '../routes';
 
-import { getAllPortfolios, deletePortfolio } from '../actions/index';
-import PortfolioCard from '../components/portfolios/PortfolioCard';
+import { getAllExperiences, deleteExperience } from '../actions/index';
+import ExperienceCard from '../components/experiences/ExperienceCard';
 
 import { Row, Col, Button } from 'reactstrap';
 
-class Portfolios extends Component {
+class Experiences extends Component {
   static async getInitialProps() {
-    let portfolios = [];
+    let experiences = [];
     try {
-      portfolios = await getAllPortfolios();
+      experiences = await getAllExperiences();
     } catch (error) {
       console.error(error);
     }
-    return { portfolios };
+    return { experiences };
   }
 
-  navigateToEdit(portfolioId, event) {
+  navigateToEdit(experienceId, event) {
     event.stopPropagation();
-    Router.pushRoute(`/portfolios/${portfolioId}/edit`);
+    Router.pushRoute(`/experiences/${experienceId}/edit`);
   }
 
-  displayDeleteWarning(portfolioId, event) {
+  displayDeleteWarning(experienceId, event) {
     event.stopPropagation();
     const isConfirm = confirm(
-      'Are you sure you want to delete this portfolio ???'
+      'Are you sure you want to delete this experience ???'
     );
 
     if (isConfirm) {
-      this.deletePortfolio(portfolioId);
+      this.deleteExperience(experienceId);
     }
   }
 
-  deletePortfolio(portfolioId) {
-    deletePortfolio(portfolioId)
+  deleteExperience(experienceId) {
+    deleteExperience(experienceId)
       .then(() => {
-        Router.pushRoute('/portfolios');
+        Router.pushRoute('/experiences');
       })
       .catch(err => console.error(err));
   }
 
-  renderPortfolios(portfolios) {
+  renderExperiences(experiences) {
     const { isAuthenticated, isSiteOwner } = this.props.auth;
 
-    return portfolios.map((portfolio, index) => {
+    return experiences.map((experience, index) => {
       return (
         <Col md="4" key={index}>
-          <PortfolioCard portfolio={portfolio}>
+          <ExperienceCard experience={experience}>
             {isAuthenticated && isSiteOwner && (
               <>
                 <Button
-                  onClick={event => this.navigateToEdit(portfolio._id, event)}
+                  onClick={event => this.navigateToEdit(experience._id, event)}
                   color="warning"
                   className="m-1"
                 >
@@ -61,7 +61,7 @@ class Portfolios extends Component {
                 </Button>
                 <Button
                   onClick={event =>
-                    this.displayDeleteWarning(portfolio._id, event)
+                    this.displayDeleteWarning(experience._id, event)
                   }
                   color="danger"
                   className="m-1"
@@ -70,33 +70,33 @@ class Portfolios extends Component {
                 </Button>
               </>
             )}
-          </PortfolioCard>
+          </ExperienceCard>
         </Col>
       );
     });
   }
 
   render() {
-    const { portfolios } = this.props;
+    const { experiences } = this.props;
     const { isAuthenticated, isSiteOwner } = this.props.auth;
 
     return (
       <BaseLayout title="Marcin Cholewka - my career" {...this.props.auth}>
-        <BasePage className="portfolio-page" title="Portfolios">
+        <BasePage className="experience-page" title="My experience">
           {isAuthenticated && isSiteOwner && (
             <Button
-              onClick={() => Router.pushRoute('/portfolios/new')}
+              onClick={() => Router.pushRoute('/experiences/new')}
               color="success"
               className="mb-4"
             >
-              Create portfolio
+              Create experience
             </Button>
           )}
-          <Row>{this.renderPortfolios(portfolios)}</Row>
+          <Row>{this.renderExperiences(experiences)}</Row>
         </BasePage>
       </BaseLayout>
     );
   }
 }
 
-export default Portfolios;
+export default Experiences;
