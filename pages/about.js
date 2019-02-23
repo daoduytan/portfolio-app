@@ -36,6 +36,11 @@ class About extends Component {
                     src="https://img.icons8.com/color/480/000000/javascript.png"
                     alt="JavaScript logo"
                   />
+                  <img
+                    className="animated__logo"
+                    src="https://cdn4.iconfinder.com/data/icons/logos-3/600/React.js_logo-512.png"
+                    alt="React logo"
+                  />
                 </div>
               </div>
             </Col>
