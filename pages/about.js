@@ -17,8 +17,26 @@ class About extends Component {
                 <h1 className="title fadein">Hello,</h1>
                 <h3 className="subtitle fadein">My name is Marcin</h3>
                 <p className="subsubTitle fadein">
-                  Software Engineer | CSS3 | HTML5 | JavaScript | React.JS
+                  Software Engineer | Frontend | CSS3 | HTML5 | JavaScript |
+                  React.JS
                 </p>
+                <div className="heading fadein">
+                  <img
+                    className="animated__logo"
+                    src="https://img.icons8.com/color/480/html-5.png"
+                    alt="HTML logo"
+                  />
+                  <img
+                    className="animated__logo"
+                    src="https://img.icons8.com/color/480/000000/css3.png"
+                    alt="CSS logo"
+                  />
+                  <img
+                    className="animated__logo"
+                    src="https://img.icons8.com/color/480/000000/javascript.png"
+                    alt="JavaScript logo"
+                  />
+                </div>
               </div>
             </Col>
             <Col md="6">
