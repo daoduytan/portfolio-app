@@ -29,10 +29,10 @@ class About extends Component {
                 </p>
                 <p>
                   I "graduated bootcamp Web Developer", seeking the first
-                  professional experience. I know it well in Java Script and the
-                  React library. I'm doing great in the world of new
-                  technologies. I am looking for development opportunities as a
-                  programmer.
+                  professional experience. I know it well in HTML, CSS, Java
+                  Script and the React.js library. I'm doing great in the world
+                  of new technologies. I am looking for development
+                  opportunities as a programmer.
                 </p>
               </div>
             </Col>
